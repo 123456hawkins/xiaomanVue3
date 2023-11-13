@@ -1,3 +1,6 @@
+# 小满vue3教程
+CSDN:https://so.csdn.net/so/search?q=vue3&t=blog&u=qq1195566313&urw=
+B站:https://www.bilibili.com/video/BV1dS4y1y7vd
 # vue-demo
 
 This template should help get you started developing with Vue 3 in Vite.
