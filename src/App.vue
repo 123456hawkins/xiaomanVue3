@@ -1,71 +1,9 @@
 <template>
-  <header>
-    <div>
-      <div v-for="(item, index) in arr" :key="index">
-        {{ item }}
-      </div>
-    </div>
-
-    <div>Ref:{{ Man }}</div>
-    <button @click="change">改变姓名</button>
-    <br>
-    <div>customRef:{{ obj2 }}</div>
-
-    <hr>
-    <!-- ref可以读到dom -->
-    <div ref="dom">我是dom</div>
-    <hr>
-  </header>
+  <div ></div>
 </template>
-<script setup lang="ts">
-import { ref, shallowRef, triggerRef, customRef } from 'vue'
 
-const dom = ref<HTMLDivElement>
-// ref是深层次，shallowRef是浅层次,shallowRef只能修改到.ref
-// ref和shallowref不能一起写
-
-// triggerRef是底层调用ref更新
-
-// customRef自定义ref
-function MyRef<T>(value: T) {
-  // timer防抖
-  let timer: any
-  return customRef((track, trigger) => {
-    return {
-      get() {
-        track()
-        return value
-      },
-      set(newVal) {
-        // 防抖
-        clearTimeout(timer)
-        timer = setTimeout(() => {
-          console.log('触发了customRef');
-          value = newVal
-          timer = null
-          trigger()
-        }, 500)
-      }
-    }
-  })
-}
-const obj2 = MyRef<string>('hawkins')
-
-
-
-const arr: string[] = ['A', 'B', 'C', 'D']
-arr.splice(2, 0, 'DDD')//第一个参数，指定在哪个位置添加/删除项目，使用负值指定从数组末尾开始的位置;第二个参数是要删除的项目数，如为0则不删除;第三个参数是要添加到数组中的项目数
-const Man = ref({ name: 'hawkins' })
-const change = () => {
-  // ref要通过value取值
-  Man.value.name = 'stephen'
-  console.log(Man);
-  console.log(obj2);
-
-  obj2.value = 'awefaw'
-
-  console.log(dom);
-
-}
+<script setup lang='ts'>
+import {ref,reactive} from 'vue'
 </script>
-<style scoped></style>
+<style scoped lang='scss'>
+</style>
