@@ -1,12 +1,19 @@
-// effect的实现
+interface Options {
+  scheduler?: Function
+}
 let activeEffect;
-export const effect = (fn: Function) => {
+export const effect = (fn: Function, options: Options) => {
   const _effect = function () {
     activeEffect = _effect;
-    fn()
+    const res = fn()
+    return res
   }
+  _effect.options = options
   _effect()
+  return _effect
 }
+
+
 const targetMap = new WeakMap()
 export const track = (target, key) => {
   let depsMap = targetMap.get(target)
@@ -22,8 +29,16 @@ export const track = (target, key) => {
 
   deps.add(activeEffect)
 }
+
+
 export const trigger = (target, key) => {
   const depsMap = targetMap.get(target)
   const deps = depsMap.get(key)
-  deps.forEach(effect => effect())
+  deps.forEach(effect => {
+    if (effect?.options?.scheduler) {
+      effect?.options?.scheduler?.()
+    } else {
+      effect()
+    }
+  })
 }

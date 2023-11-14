@@ -11,6 +11,7 @@
 <body>
   <div id="app"></div>
   <script type="module">
+    import { computed } from './computed.js'
     import { reactive } from './reactive.js'
     import { effect } from './effect.js'
     const user = reactive({
@@ -35,6 +36,13 @@
         }, 1000);
       }, 1000);
     }, 1000);
+
+    window.a=reactive({name:'a',age:18})
+    window.b=computed(()=>{
+      console.log('重新计算');
+      return a.age+10
+    })
+    console.log(b);
   </script>
 </body>
 
