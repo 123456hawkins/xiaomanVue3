@@ -1,58 +1,15 @@
 <template>
   <div></div>
-  <A v-if="flag"></A>
-  <div ref="div">{{ str }}</div>
-  <button @click="change">修改值</button>
-  <button @click="flag = !flag">创建-销毁</button>
+  <tree></tree>
 </template>
 
 <script setup lang='ts'>
-import { ref, reactive, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onUnmounted, onRenderTracked, onRenderTriggered, onBeforeUnmount } from 'vue'
-// 在vue2中还需要关键字components注册
-import A from './components/A.vue'
-
-console.log('setup');
-const str = ref<string>('hawkins')
-
-const div = ref<HTMLDivElement>()
-
-const change = () => {
-  str.value = ('wefaweawe')
-  console.log('====str发生了改变');
-
+import tree from './components/tree.vue';
+type TreeList = {
+  name: string;
+  icon?: string;
+  children: TreeList[] | []
 }
 
-const flag = ref<Boolean>(true)
-
-onBeforeMount(() => {
-  console.log('挂载之前======', div.value);//读不到数据
-})
-onMounted(() => {
-  console.log('挂载完成======', div.value);//读的到数据
-})
-onUnmounted(() => {
-  console.log('卸载之后======');
-})
-onBeforeUnmount(() => {
-  console.log('卸载之前');
-
-})
-onBeforeUpdate(() => {
-  console.log('更新之前======', div.value?.innerText);//原始值
-
-})
-onUpdated(() => {
-  console.log('更新之后======', div.value?.innerText);//修改的值
-})
-
-// 收集依赖做调试使用
-onRenderTracked((e) => {
-  console.log(e);
-
-})
-onRenderTriggered((e) => {
-  console.log(e);
-
-})
 </script>
 <style scoped lang='scss'></style>
