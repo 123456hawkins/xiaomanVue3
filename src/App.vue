@@ -1,23 +1,30 @@
 <template>
-  <!-- 展示异步组件必须使用suspense关键字 -->
-  <Suspense>
-    <!-- 加载完成 -->
-    <template #default>
-      <syncVue></syncVue>
-    </template>
-    <!-- 等待加载的骨架图 -->
-    <template #fallback>
-      <skeleton></skeleton>
-    </template>
-  </Suspense>
+  <div class="pageConatiner">我是父级
+    <Teleport to="body">
+      <teleP></teleP>
+    </Teleport>
+    <div class="footer" id="footer"></div>
+  </div>
 </template>
 
 <script setup lang='ts'>
-import { ref, reactive, defineAsyncComponent } from 'vue'
-import skeleton from './components/skeleton.vue';
-// 引入异步组件
-// 代码分包,凡是通过import导入的组件都能分包
-const syncVue = defineAsyncComponent(() => import('@/components/sync.vue'))
-
+import { ref, reactive } from 'vue'
+import teleP from './components/teleP.vue';
 </script>
-<style scoped lang='scss'></style>
+<style scoped lang='scss'>
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.pageConatiner {
+  height: 50vh;
+  width: 80vh;
+  background-color: greenyellow;
+
+  .footer {
+    height: 50%;
+    border: 1px solid black;
+  }
+}
+</style>
