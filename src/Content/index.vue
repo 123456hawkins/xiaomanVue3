@@ -7,16 +7,33 @@
       @leave-cancelled="onLeaveCancelled" :duration="3000" name="fade">
       <div v-if="flag" class="box"></div>
     </transition>
+
+
+    <button @click="add">添加元素</button>
+    <button @click="del">删除元素</button>
+    <div class="wrap">
+      <TransitionGroup enter-active-class="animate__animated animate__fadeIn"
+        leave-active-class="animate__animated animate__bounceOutUp">
+        <div class="item" v-for="item in list" :key="item">{{ item }}</div>
+      </TransitionGroup>
+    </div>
+
   </div>
 </template>
 
 <script setup lang='ts'>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 // 导入animate库
 import 'animate.css'
 import gsap from 'gsap'
 let flag = ref<boolean>(true)
-
+const list = reactive<number[]>([1, 2, 3, 4, 5, 6, 7, 8, 9])
+const add = () => {
+  list.push(list.length + 1)
+}
+const del = () => {
+  list.pop()
+}
 const onBeforeEnter = (el: Element) => {
   console.log('插入之前', el);
   gsap.set(el, {
@@ -100,5 +117,18 @@ const onLeaveCancelled = (el: Element) => {
   height: 600px;
   width: 600px;
   background-color: green;
+
+  .wrap {
+    display: flex;
+    flex-wrap: wrap;
+    word-break: break-all;
+
+    .item {
+      margin: 5px;
+      width: 20px;
+      width: 20px;
+      background-color: yellow;
+    }
+  }
 }
 </style>
