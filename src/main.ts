@@ -10,6 +10,7 @@ import App from './App.vue'
 // import router from './router'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+
 // import Loading from './components/Loading'
 
 const app = createApp(App)
