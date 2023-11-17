@@ -1,13 +1,10 @@
 <template>
-  <div>{{ $hawkins }}</div>
-  <div>{{ $filters.format('awefaw') }}</div>
+  <div>
+    <el-input placeholder="测试代码"></el-input>
+  </div>
 </template>
 
 <script setup lang='ts'>
-import { ref, reactive, getCurrentInstance } from 'vue'
-// js想使用到全局函数要调用getCurrentInstance
-const app = getCurrentInstance()
-console.log(app?.proxy?.$filters.format('javascript'));
-console.log(app?.proxy?.$hawkins);
+import { ref, reactive } from 'vue'
 </script>
 <style scoped lang='scss'></style>
