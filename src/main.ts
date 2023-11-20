@@ -10,7 +10,7 @@ import mitt from 'mitt'
 const Mit = mitt()
 
 import App from './App.vue'
-// import router from './router'
+import router from './router'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
@@ -84,6 +84,6 @@ declare module 'vue' {
 app.config.globalProperties.$Bus = Mit
 
 app.use(store)
-// app.use(router)
+app.use(router)
 app.use(ElementPlus)
 app.mount('#app')
