@@ -13,8 +13,24 @@ export default ({ mode }: any) => {
 
   return defineConfig({
     plugins: [
-      vue(), tsx(),visualizer({open:true})
+      vue({
+        template: {
+          compilerOptions: {
+            isCustomElement: (tag) => tag.includes('hawkins-')
+          }
+        }
+      })
     ],
+    // 只有dev模式下有用
+    // 开启代理
+    server: {
+      proxy: {
+        '/api': {
+          target: 'https://www.baidu.com',
+          rewrite: (path) => path.replace(/^\/api/, '')
+        }
+      }
+    },
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url))
@@ -27,12 +43,12 @@ export default ({ mode }: any) => {
         }
       }
     },
-    build:{
-      chunkSizeWarningLimit:2000,
-      cssCodeSplit:true,
-      sourcemap:false,
-      minify:'esbuild',
-      assetsInlineLimit:4000
+    build: {
+      chunkSizeWarningLimit: 2000,
+      cssCodeSplit: true,
+      sourcemap: false,
+      minify: 'esbuild',
+      assetsInlineLimit: 4000
     }
 
   })
