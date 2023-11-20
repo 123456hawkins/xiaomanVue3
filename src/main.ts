@@ -1,8 +1,10 @@
 import './assets/main.css'
 
 import { createApp, toRaw } from 'vue'
-import { createPinia,  } from 'pinia'
-import type {PiniaPluginContext} from 'pinia'
+import { createPinia, } from 'pinia'
+import type { PiniaPluginContext } from 'pinia'
+// pinia持久化插件
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import mitt from 'mitt'
 
 const Mit = mitt()
@@ -17,36 +19,37 @@ import 'element-plus/dist/index.css'
 const app = createApp(App)
 
 // pinia持久化
-const __piniaKey__: string = 'hawkins'
-const setStorage = (key: string, value: any) => {
-  localStorage.setItem(key, JSON.stringify(value))
-}
-type Options = {
-  key?: string
-}
-const getStorage = (key: string) => {
-  return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key) as string) : {}
-}
-const piniaPlugin = (options: Options) => {
-  return (context: PiniaPluginContext) => {
-    const { store } = context;
-    const data = getStorage(`${options?.key ?? __piniaKey__}-${store.$id}`)
-    store.$subscribe(() => {
-      // 一发生变化就存储
-      setStorage(`${options?.key ?? __piniaKey__}-${store.$id}`, toRaw(store.$state))
-    })
-    console.log(store, 'store');
+// const __piniaKey__: string = 'hawkins'
+// const setStorage = (key: string, value: any) => {
+//   localStorage.setItem(key, JSON.stringify(value))
+// }
+// type Options = {
+//   key?: string
+// }
+// const getStorage = (key: string) => {
+//   return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key) as string) : {}
+// }
+// const piniaPlugin = (options: Options) => {
+//   return (context: PiniaPluginContext) => {
+//     const { store } = context;
+//     const data = getStorage(`${options?.key ?? __piniaKey__}-${store.$id}`)
+//     store.$subscribe(() => {
+//       // 一发生变化就存储
+//       setStorage(`${options?.key ?? __piniaKey__}-${store.$id}`, toRaw(store.$state))
+//     })
+//     console.log(store, 'store');
 
-    return {
-      ...data
-    }
-  }
-}
+//     return {
+//       ...data
+//     }
+//   }
+// }
 
 const store = createPinia()
-store.use(piniaPlugin({
-  key: "pinia"
-}))
+// store.use(piniaPlugin({
+//   key: "pinia"
+// }))
+store.use(piniaPluginPersistedstate)
 // app.use(Loading)
 // 声明mitt
 declare module 'vue' {

@@ -15,13 +15,13 @@ const Login = () => {
     }, 2000);
   })
 }
-export const useStore=defineStore(Names.BASE,{
-  state:()=>{
+export const useStore = defineStore(Names.BASE, {
+  state: () => {
     return {
-      basecurrent:1,
-      basename:'awefaghawe'
+      basecurrent: 1,
+      basename: 'awefaghawe'
     }
-  }
+  }, persist: true
 })
 export const useTestStore = defineStore(Names.TEST, {
   state: () => {
@@ -33,7 +33,7 @@ export const useTestStore = defineStore(Names.TEST, {
   },
   // computed
   getters: {
-    temName():string{
+    temName(): string {
       return `$$-${this.name}-$$`
     }
   },
@@ -60,4 +60,5 @@ export const useTestStore = defineStore(Names.TEST, {
       this.user.name = name
     }
   }
+  , persist: true
 })
