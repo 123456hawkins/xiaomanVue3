@@ -1,5 +1,6 @@
-import { defineStore } from "pinia";
+import { defineStore,createVnoe } from "pinia";
 import { Names } from './store-name'
+
 type User = {
   name: string,
   age: number

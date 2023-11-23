@@ -29,7 +29,8 @@ export default ({ mode }: any) => {
           target: 'https://www.baidu.com',
           rewrite: (path) => path.replace(/^\/api/, '')
         }
-      }
+      },
+      open: true
     },
     resolve: {
       alias: {
