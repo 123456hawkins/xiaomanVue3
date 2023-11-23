@@ -3,6 +3,8 @@ import type { RouteRecordRaw } from 'vue-router'
 import { createApp, createVNode, render } from 'vue'
 import loadingBar from '../components/loadingBar.vue'
 const Vnode = createVNode(loadingBar)
+console.log(Vnode);
+
 // 定义接口
 declare module 'vue-router' {
   interface RouteMeta {
@@ -21,8 +23,6 @@ const routes: Array<RouteRecordRaw> = [
     // 路由元信息
     meta: { title: '登录页', requiresAuth: true, transition: "animate__backInLeft" },
     component: () => import('@/views/login.vue')
-
-    
   },
   {
     path: "/index",
@@ -34,7 +34,14 @@ const routes: Array<RouteRecordRaw> = [
 ]
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { top: 0 }
+    }
+  },
 })
 
 router.beforeEach((to, from, next) => {

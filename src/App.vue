@@ -16,10 +16,8 @@ import 'animate.css'
 }
 
 html,
-body,
-#app {
+body{
   height: 100%;
   width: 100%;
-  overflow: hidden;
 }
 </style>

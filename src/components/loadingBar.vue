@@ -12,6 +12,7 @@ let bar = ref<HTMLElement>()
 let timer = ref<number>(0)
 const startLoading = () => {
   let dom = bar.value as HTMLElement
+  dom.style.display = 'block'
   speed.value = 1
   timer.value = window.requestAnimationFrame(function fn() {
     if (speed.value < 90) {
@@ -30,19 +31,30 @@ const endLoading = () => {
   setTimeout(() => {
     window.requestAnimationFrame(() => [
       speed.value = 100,
-      dom.style.width = speed.value + '%'
+      dom.style.width = speed.value + '%',
     ])
+    setTimeout(() => {
+      dom.style.display = 'none'
+    }, 500);
   }, 1000);
 
+
+}
+const disappear = () => {
+  let dom = bar.value as HTMLElement;
+  dom.style.display = 'none'
 }
 onMounted(() => {
   startLoading()
   endLoading()
+
 })
+
 // 暴露内部方法
 defineExpose({
   startLoading,
-  endLoading
+  endLoading,
+  disappear
 })
 </script>
 <style scoped lang='scss'>
