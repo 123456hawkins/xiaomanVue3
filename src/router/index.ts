@@ -26,6 +26,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/index",
+    name:"index",
     // // 路由元信息
     meta: { title: '主页', requiresAuth: true, transition: "animate__backInUp" },
     component: () => import('@/views/index.vue')

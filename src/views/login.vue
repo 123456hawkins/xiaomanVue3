@@ -21,6 +21,8 @@ import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import type { FormInstance, FormRules } from 'element-plus'
 const router = useRouter()
+import axios from 'axios'
+
 interface RuleForm {
   account: string,
   password: string
@@ -53,11 +55,26 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       console.log('submit!')
       localStorage.setItem('token', 'awegadfwafaef')
       router.push('/index')
-
+      initRouter()
     } else {
       console.log('error submit!', fields)
     }
   })
+}
+const initRouter = async () => {
+  const res = await axios.get('http://localhost:8681/login', { params: ruleForm })
+  console.log(res);
+
+
+  res.data.route.forEach((v: any) => {
+    router.addRoute('index', {
+      path: v.path,
+      name: v.name,
+      component: () => import(`../views/${v.component}`)
+    })
+  });
+  console.log(router.getRoutes());
+
 }
 </script>
 <style scoped lang='scss'>
