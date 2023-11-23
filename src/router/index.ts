@@ -8,6 +8,8 @@ declare module 'vue-router' {
   interface RouteMeta {
     isAdmin?: boolean
     requiresAuth: boolean
+    title: string
+    transition: string
   }
 }
 
@@ -17,14 +19,14 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     // 路由元信息
-    meta: { title: '登录页', requiresAuth: true },
+    meta: { title: '登录页', requiresAuth: true, transition: "animate__backInLeft" },
     component: () => import('@/views/login.vue')
 
   },
   {
     path: "/index",
     // // 路由元信息
-    meta: { title: '主页', requiresAuth: true },
+    meta: { title: '主页', requiresAuth: true, transition: "animate__backInUp" },
     component: () => import('@/views/index.vue')
   },
 
