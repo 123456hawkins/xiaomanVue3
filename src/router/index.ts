@@ -22,6 +22,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: '登录页', requiresAuth: true, transition: "animate__backInLeft" },
     component: () => import('@/views/login.vue')
 
+    
   },
   {
     path: "/index",
